@@ -1,19 +1,57 @@
 import { Vector3 } from "./BaseTypes.js";
 import { sceneHeight, sceneWidth } from "./CSLManager.js";
 
-const { PhysicsImpostor, GroundBuilder, MeshBuilder } = globalThis.BABYLON;
+const { PhysicsImpostor, GroundBuilder, MeshBuilder, Mesh } = globalThis.BABYLON;
 
 export class Ground {
     constructor () {
         const width = 40;
         const height = 25;
 
+        /*
         this.ground = GroundBuilder.CreateGround("ground", {
             width: sceneWidth,
             height: 10,
         });
         this.ground.position = Vector3(sceneWidth / 2, -5);
         this.ground.physicsImpostor = new PhysicsImpostor(this.ground, PhysicsImpostor.BoxImpostor, { mass: 0 });
+        */
+
+        /*
+        default color
+        r 0.3  => 76.5
+        g 0.59 => 150.45
+        b 0.11 => 28.05
+        */
+
+        /*
+        this.ground = Mesh.CreateGroundFromHeightMap("ground", "./assets/gradient.png", {
+
+            width: sceneWidth,
+            height: sceneHeight / 4,
+            minHeight: 0,
+            maxHeight: sceneHeight / 4,
+        });
+        */
+
+        this.options = [sceneWidth, 100, 250, 0, sceneHeight / 2];
+
+        this.ground = Mesh.CreateGroundFromHeightMap("ground", "./assets/gradientThin.png", ...this.options);
+        this.ground.position = Vector3(sceneWidth / 2, 0);
+        globalThis.ground = this.ground;
+        this.current = "./assets/gradientThin.png";
+
+        setInterval(() => {
+            this.ground.dispose();
+            let name = "./assets/gradientThin.png";
+            if (this.current === name) {
+                name = "./assets/gradientThin2.png";
+            }
+
+            this.ground = Mesh.CreateGroundFromHeightMap("ground", name, ...this.options);
+            this.ground.position = Vector3(sceneWidth / 2, 0);
+            this.current = name;
+        }, 500);
 
         /*
         This breaks the physics engine
