@@ -25,6 +25,7 @@
     "dotenv": "^8.2.0",
     "graphql": "^14.5.3",
     "mongoose": "^5.11.18",
+    "simplex-noise": "^2.4.0",
     "uWebSockets.js": "uNetworking/uWebSockets.js#v18.14.0"
   },
   "devDependencies": {

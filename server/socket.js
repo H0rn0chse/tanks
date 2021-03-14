@@ -85,6 +85,7 @@ export function startServer () {
     })
         .file("/", indexHtml, { lastModified: false, watch: local })
         .folder("/", publicPath, { lastModified: false, watch: local })
+        .file("/simplex-noise.js", path.join(__root, "/node_modules/simplex-noise/simplex-noise.js"))
         .get("/*", (res, req) => {
             res.writeStatus("404 Not Found").end("");
         })
